@@ -1,79 +1,178 @@
-import { Calendar } from "lucide-react";
+import React, { useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import {
+  LayoutDashboard, Code2, Brain, MessageSquare, Map, ChevronLeft,
+  ChevronRight, Flame, Trophy, Target, BookOpen, Cpu, Shield,
+  Palette, Server, X, Menu
+} from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-const days = ["S", "M", "T", "W", "T", "F", "S"];
-const today = new Date();
-const year = today.getFullYear();
-const month = today.getMonth();
-const firstDay = new Date(year, month, 1).getDay();
-const daysInMonth = new Date(year, month + 1, 0).getDate();
+const navItems = [
+  {
+    section: 'MAIN',
+    items: [
+      { to: '/', icon: LayoutDashboard, label: 'Dashboard', exact: true },
+      { to: '/codelab', icon: Code2, label: 'Code Lab' },
+      { to: '/aptitude', icon: Brain, label: 'Aptitude Hub' },
+      { to: '/communication', icon: MessageSquare, label: 'Communication' },
+    ],
+  },
+  {
+    section: 'ROLE PATHS',
+    items: [
+      { to: '/path/software-dev', icon: Cpu, label: 'Software Dev' },
+      { to: '/path/fullstack', icon: Server, label: 'Full Stack' },
+      { to: '/path/cybersecurity', icon: Shield, label: 'Cybersecurity' },
+      { to: '/path/uiux', icon: Palette, label: 'UI / UX' },
+      { to: '/path/devops', icon: Target, label: 'DevOps' },
+    ],
+  },
+  {
+    section: 'RESOURCES',
+    items: [
+      { to: '/learn', icon: BookOpen, label: 'Learn' },
+      { to: '/leaderboard', icon: Trophy, label: 'Leaderboard' },
+      { to: '/streak', icon: Flame, label: 'My Streak' },
+    ],
+  },
+];
 
-const Sidebar = () => {
-  const calendarDays: (number | null)[] = [];
-  for (let i = 0; i < firstDay; i++) calendarDays.push(null);
-  for (let i = 1; i <= daysInMonth; i++) calendarDays.push(i);
+interface SidebarProps {
+  collapsed: boolean;
+  onToggle: () => void;
+  mobileOpen: boolean;
+  onMobileClose: () => void;
+}
 
-  const monthName = today.toLocaleString("default", { month: "long" });
+const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle, mobileOpen, onMobileClose }) => {
+  const location = useLocation();
 
-  const companies = [
-    { name: "Google", count: 2924 },
-    { name: "Amazon", count: 1935 },
-    { name: "Meta", count: 1384 },
-    { name: "Microsoft", count: 1353 },
-    { name: "Apple", count: 349 },
-    { name: "Bloomberg", count: 1177 },
-    { name: "Uber", count: 375 },
-    { name: "Oracle", count: 339 },
-  ];
+  const isActive = (to: string, exact?: boolean) => {
+    if (exact) return location.pathname === to;
+    return location.pathname.startsWith(to);
+  };
 
-  return (
-    <div className="w-72 shrink-0 space-y-5">
-      {/* Calendar */}
-      <div className="rounded-lg border border-border bg-card p-4">
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-sm font-medium text-card-foreground">
-            {monthName} {year}
-          </span>
-          <Calendar className="w-4 h-4 text-muted-foreground" />
+  const SidebarContent = () => (
+    <div className="flex flex-col h-full">
+      {/* Logo */}
+      <div className={cn(
+        "flex items-center gap-3 px-4 py-5 border-b border-border/60 transition-all duration-300",
+        collapsed ? "justify-center" : ""
+      )}>
+        <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-orange-500 flex items-center justify-center glow-orange">
+          <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5">
+            <path d="M12 2L14.5 9H22L16.5 13.5L18.5 20.5L12 16.5L5.5 20.5L7.5 13.5L2 9H9.5L12 2Z" fill="white" />
+          </svg>
         </div>
-        <div className="grid grid-cols-7 gap-1 text-center">
-          {days.map((d, i) => (
-            <div key={i} className="text-[10px] text-muted-foreground font-medium py-1">{d}</div>
-          ))}
-          {calendarDays.map((day, i) => (
-            <div
-              key={i}
-              className={`text-[11px] py-1 rounded-sm ${
-                day === today.getDate()
-                  ? "bg-primary text-primary-foreground font-bold"
-                  : day
-                  ? "text-card-foreground hover:bg-secondary cursor-pointer"
-                  : ""
-              }`}
-            >
-              {day}
-            </div>
-          ))}
-        </div>
+        {!collapsed && (
+          <div className="overflow-hidden">
+            <div className="font-bold text-base text-foreground leading-tight">SkillForge</div>
+            <div className="text-[10px] text-orange-400 font-semibold tracking-widest">2.0 PLATFORM</div>
+          </div>
+        )}
       </div>
 
-      {/* Trending Companies */}
-      <div className="rounded-lg border border-border bg-card p-4">
-        <h3 className="text-sm font-medium text-card-foreground mb-3">Trending Companies</h3>
-        <div className="flex flex-wrap gap-2">
-          {companies.map((c) => (
-            <button
-              key={c.name}
-              className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {c.name}
-              <span className="bg-primary/15 text-primary text-[10px] font-medium px-1.5 py-0.5 rounded-full">
-                {c.count}
-              </span>
-            </button>
-          ))}
+      {/* Nav Items */}
+      <div className="flex-1 overflow-y-auto py-3 custom-scrollbar">
+        {navItems.map((group) => (
+          <div key={group.section} className="mb-4">
+            {!collapsed && (
+              <div className="px-4 mb-1 text-[10px] font-semibold tracking-widest text-muted-foreground/60 uppercase">
+                {group.section}
+              </div>
+            )}
+            {group.items.map((item) => {
+              const active = isActive(item.to, item.exact);
+              return (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  onClick={onMobileClose}
+                  className={cn(
+                    "flex items-center gap-3 mx-2 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 group",
+                    active
+                      ? "bg-orange-500/15 text-orange-400 border border-orange-500/20"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  )}
+                >
+                  <item.icon className={cn(
+                    "flex-shrink-0 w-4.5 h-4.5 transition-colors",
+                    active ? "text-orange-400" : "text-muted-foreground group-hover:text-foreground"
+                  )} size={18} />
+                  {!collapsed && <span className="truncate">{item.label}</span>}
+                  {active && !collapsed && (
+                    <div className="ml-auto w-1.5 h-1.5 rounded-full bg-orange-400" />
+                  )}
+                </NavLink>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+
+      {/* User / Footer */}
+      <div className={cn(
+        "border-t border-border/60 p-3",
+        collapsed ? "flex justify-center" : ""
+      )}>
+        <div className={cn(
+          "flex items-center gap-3 rounded-lg p-2 hover:bg-muted cursor-pointer transition-colors",
+          collapsed ? "justify-center" : ""
+        )}>
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+            SF
+          </div>
+          {!collapsed && (
+            <div className="min-w-0">
+              <div className="text-sm font-medium text-foreground truncate">Skill Learner</div>
+              <div className="text-xs text-muted-foreground truncate">Free Plan</div>
+            </div>
+          )}
         </div>
       </div>
     </div>
+  );
+
+  return (
+    <>
+      {/* Mobile overlay */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={onMobileClose}
+        />
+      )}
+
+      {/* Mobile sidebar */}
+      <div className={cn(
+        "fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border lg:hidden transition-transform duration-300",
+        mobileOpen ? "translate-x-0" : "-translate-x-full"
+      )}>
+        <button
+          onClick={onMobileClose}
+          className="absolute top-4 right-4 p-1 rounded-md hover:bg-muted text-muted-foreground"
+        >
+          <X size={18} />
+        </button>
+        <SidebarContent />
+      </div>
+
+      {/* Desktop sidebar */}
+      <div className={cn(
+        "hidden lg:flex flex-col relative border-r border-border/60 bg-card transition-all duration-300 h-full",
+        collapsed ? "w-16" : "w-60"
+      )}>
+        <SidebarContent />
+
+        {/* Toggle button */}
+        <button
+          onClick={onToggle}
+          className="absolute -right-3 top-20 z-10 w-6 h-6 rounded-full bg-card border border-border flex items-center justify-center hover:bg-muted transition-colors shadow-sm"
+        >
+          {collapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
+        </button>
+      </div>
+    </>
   );
 };
 
