@@ -50,18 +50,18 @@ const CodeLab = () => {
             </div>
 
             {/* DSA Category Cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
-                {['Arrays', 'Linked Lists', 'Stacks', 'Queues', 'Trees', 'Graphs', 'Dynamic Programming'].map((cat) => (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-3">
+                {['Arrays', 'Strings', 'Linked Lists', 'Stacks', 'Trees', 'Graphs', 'Dynamic Programming', 'Cyber Security'].map((cat) => (
                     <button
                         key={cat}
                         onClick={() => setCategory(cat)}
                         className={`p-3 rounded-xl text-xs font-medium text-center transition-all border ${category === cat
-                                ? 'bg-orange-500/15 border-orange-500/30 text-orange-400'
-                                : 'bg-card border-border text-muted-foreground hover:border-orange-500/20 hover:text-foreground'
+                            ? 'bg-orange-500/15 border-orange-500/30 text-orange-400'
+                            : 'bg-card border-border text-muted-foreground hover:border-orange-500/20 hover:text-foreground'
                             }`}
                     >
                         <div className="text-xl mb-1">{
-                            { Arrays: '📊', 'Linked Lists': '🔗', Stacks: '📚', Queues: '⏳', Trees: '🌳', Graphs: '🕸️', 'Dynamic Programming': '⚡' }[cat]
+                            { Arrays: '📊', Strings: '📝', 'Linked Lists': '🔗', Stacks: '📚', Queues: '⏳', Trees: '🌳', Graphs: '🕸️', 'Dynamic Programming': '⚡', 'Cyber Security': '🛡️' }[cat] || '💡'
                         }</div>
                         {cat}
                     </button>
@@ -129,7 +129,7 @@ const CodeLab = () => {
                                     </div>
                                     <div>
                                         <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${problem.difficulty === 'Easy' ? 'badge-easy' :
-                                                problem.difficulty === 'Medium' ? 'badge-medium' : 'badge-hard'
+                                            problem.difficulty === 'Medium' ? 'badge-medium' : 'badge-hard'
                                             }`}>
                                             {problem.difficulty}
                                         </span>

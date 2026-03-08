@@ -126,7 +126,7 @@ const ProblemEditorPage = () => {
                         ].map(({ key, label, icon: Icon }) => (
                             <button
                                 key={key}
-                                onClick={() => setTab(key as any)}
+                                onClick={() => setTab(key as 'description' | 'hints')}
                                 className={`flex items-center gap-1.5 px-3 py-2 text-xs font-medium border-b-2 -mb-px transition-colors ${tab === key ? 'border-orange-500 text-orange-400' : 'border-transparent text-muted-foreground hover:text-foreground'
                                     }`}
                             >
@@ -253,7 +253,7 @@ const ProblemEditorPage = () => {
                                 ].map(({ key, label }) => (
                                     <button
                                         key={key}
-                                        onClick={() => setConsoleTab(key as any)}
+                                        onClick={() => setConsoleTab(key as 'testcase' | 'output')}
                                         className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${consoleTab === key ? 'bg-muted text-foreground' : 'text-muted-foreground hover:text-foreground'
                                             }`}
                                     >

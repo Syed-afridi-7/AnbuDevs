@@ -10,6 +10,11 @@ import AptitudeHub from "./pages/AptitudeHub";
 import Communication from "./pages/Communication";
 import RolePaths from "./pages/RolePaths";
 import ProblemEditorPage from "./pages/ProblemEditorPage";
+import Tutorials from "./pages/Tutorials";
+import TutorialViewer from "./pages/TutorialViewer";
+import Articles from "./pages/Articles";
+import ArticleView from "./pages/ArticleView";
+import Leaderboard from "./pages/Leaderboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +40,11 @@ const App = () => (
                   <Route path="/aptitude" element={<AptitudeHub />} />
                   <Route path="/communication" element={<Communication />} />
                   <Route path="/path/:role" element={<RolePaths />} />
+                  <Route path="/tutorials" element={<Tutorials />} />
+                  <Route path="/tutorials/:topicId" element={<TutorialViewer />} />
+                  <Route path="/articles" element={<Articles />} />
+                  <Route path="/articles/:id" element={<ArticleView />} />
+                  <Route path="/leaderboard" element={<Leaderboard />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </MainLayout>

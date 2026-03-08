@@ -59,10 +59,10 @@ const Communication = () => {
                 ].map(({ key, label, icon: Icon }) => (
                     <button
                         key={key}
-                        onClick={() => setActiveTab(key as any)}
+                        onClick={() => setActiveTab(key as 'intro' | 'grammar' | 'interview')}
                         className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors ${activeTab === key
-                                ? 'border-orange-500 text-orange-400'
-                                : 'border-transparent text-muted-foreground hover:text-foreground'
+                            ? 'border-orange-500 text-orange-400'
+                            : 'border-transparent text-muted-foreground hover:text-foreground'
                             }`}
                     >
                         <Icon size={14} /> {label}

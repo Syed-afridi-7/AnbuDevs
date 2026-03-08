@@ -30,6 +30,7 @@ const AptitudeHub = () => {
             }, 1000);
         }
         return () => clearInterval(timerRef.current!);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [quizStarted, currentQ, answered]);
 
     const handleAnswer = (idx: number | null) => {
@@ -189,8 +190,8 @@ const AptitudeHub = () => {
                         key={cat}
                         onClick={() => setCategory(cat)}
                         className={`px-4 py-2 rounded-lg text-sm font-medium border transition-all ${category === cat
-                                ? 'bg-orange-500/15 border-orange-500/30 text-orange-400'
-                                : 'bg-card border-border text-muted-foreground hover:border-orange-500/20'
+                            ? 'bg-orange-500/15 border-orange-500/30 text-orange-400'
+                            : 'bg-card border-border text-muted-foreground hover:border-orange-500/20'
                             }`}
                     >
                         {cat}

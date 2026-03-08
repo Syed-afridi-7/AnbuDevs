@@ -1,38 +1,55 @@
 import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
-  LayoutDashboard, Code2, Brain, MessageSquare, Map, ChevronLeft,
+  LayoutDashboard, Code2, Brain, MessageSquare, ChevronLeft,
   ChevronRight, Flame, Trophy, Target, BookOpen, Cpu, Shield,
-  Palette, Server, X, Menu
+  Palette, Server, X, FileText, MonitorPlay, Users, Rocket,
+  Briefcase, ShieldCheck
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
   {
-    section: 'MAIN',
+    section: 'DASHBOARD',
     items: [
       { to: '/', icon: LayoutDashboard, label: 'Dashboard', exact: true },
-      { to: '/codelab', icon: Code2, label: 'Code Lab' },
-      { to: '/aptitude', icon: Brain, label: 'Aptitude Hub' },
-      { to: '/communication', icon: MessageSquare, label: 'Communication' },
+      { to: '/leaderboard', icon: Trophy, label: 'Leaderboard' },
     ],
   },
   {
-    section: 'ROLE PATHS',
+    section: 'PRACTICE (Coding)',
     items: [
+      { to: '/codelab', icon: Code2, label: 'Problem Editor' },
+      { to: '/practice/cyber-security', icon: Shield, label: 'Cyber Security (CTF)' },
+    ],
+  },
+  {
+    section: 'LEARN (Tutorials)',
+    items: [
+      { to: '/tutorials', icon: BookOpen, label: 'Structured Paths' },
+      { to: '/playground', icon: MonitorPlay, label: 'Playground' },
+    ],
+  },
+  {
+    section: 'READ (Articles)',
+    items: [
+      { to: '/articles', icon: FileText, label: 'Dev-Blog' },
+      { to: '/interview-experiences', icon: Users, label: 'Experiences' },
+    ],
+  },
+  {
+    section: 'SONA INCUBATION',
+    items: [
+      { to: '/sona-incubation', icon: Rocket, label: 'Startups & Ideas' },
+      { to: '/projects', icon: Briefcase, label: 'Projects Pool' },
+    ],
+  },
+  {
+    section: 'ROADMAPS',
+    items: [
+      { to: '/path/cybersecurity', icon: ShieldCheck, label: 'Cyber Security' },
       { to: '/path/software-dev', icon: Cpu, label: 'Software Dev' },
       { to: '/path/fullstack', icon: Server, label: 'Full Stack' },
-      { to: '/path/cybersecurity', icon: Shield, label: 'Cybersecurity' },
-      { to: '/path/uiux', icon: Palette, label: 'UI / UX' },
-      { to: '/path/devops', icon: Target, label: 'DevOps' },
-    ],
-  },
-  {
-    section: 'RESOURCES',
-    items: [
-      { to: '/learn', icon: BookOpen, label: 'Learn' },
-      { to: '/leaderboard', icon: Trophy, label: 'Leaderboard' },
-      { to: '/streak', icon: Flame, label: 'My Streak' },
     ],
   },
 ];

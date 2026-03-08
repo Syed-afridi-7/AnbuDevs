@@ -8,7 +8,8 @@ const pageTitles: Record<string, string> = {
     '/codelab': 'Code Lab',
     '/aptitude': 'Aptitude Hub',
     '/communication': 'Communication',
-    '/learn': 'Learn',
+    '/tutorials': 'Tutorials',
+    '/articles': 'Articles',
     '/leaderboard': 'Leaderboard',
     '/streak': 'My Streak',
 };
@@ -28,6 +29,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         if (path.startsWith('/path/')) return 'Role Path';
         if (path.startsWith('/codelab/')) return 'Code Lab';
         if (path.startsWith('/aptitude/')) return 'Aptitude Hub';
+        if (path.startsWith('/tutorials/')) return 'Tutorial Viewer';
+        if (path.startsWith('/articles/')) return 'Article';
         return 'AnbuDevs';
     };
 

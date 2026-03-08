@@ -267,6 +267,22 @@ export const problems: Problem[] = [
     }
   },
   {
+    id: 301, title: "SQL Injection Prevention", difficulty: "Medium", category: "Cyber Security",
+    tags: ["Cyber Security", "Web", "Sanitization"], acceptance: 43.1,
+    description: "Write a function to sanitize user inputs to prevent SQL Injection attacks. Return the safe query string.",
+    examples: [
+      { input: "query = 'SELECT * FROM users WHERE username = \" admin\" OR 1=1 -- '", output: "Sanitized Query" },
+    ],
+    constraints: ["Length of query <= 10^5"],
+    starterCode: {
+      python: "def sanitizeQuery(query):\n    pass",
+      javascript: "function sanitizeQuery(query) {\n}",
+      java: "class Solution {\n    public String sanitizeQuery(String query) {\n    }\n}",
+      cpp: "class Solution {\npublic:\n    string sanitizeQuery(string query) {\n    }\n};",
+      c: "char* sanitizeQuery(char* query) {\n}",
+    }
+  },
+  {
     id: 202, title: "Trapping Rain Water", difficulty: "Hard", category: "Arrays",
     tags: ["Array", "Two Pointers", "Stack", "DP"], acceptance: 59.2,
     description: "Given `n` non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.",
@@ -318,7 +334,7 @@ export const problems: Problem[] = [
 ];
 
 // Utility exports
-export const categories = ['Arrays', 'Strings', 'Linked Lists', 'Stacks', 'Queues', 'Trees', 'Graphs', 'Dynamic Programming', 'Math', 'Backtracking'];
+export const categories = ['Arrays', 'Strings', 'Linked Lists', 'Stacks', 'Queues', 'Trees', 'Graphs', 'Dynamic Programming', 'Math', 'Backtracking', 'Cyber Security'];
 export const getProblemById = (id: number) => problems.find(p => p.id === id);
 export const getEasyProblems = () => problems.filter(p => p.difficulty === 'Easy');
 export const getMediumProblems = () => problems.filter(p => p.difficulty === 'Medium');
